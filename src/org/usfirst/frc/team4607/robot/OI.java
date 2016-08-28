@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4607.robot.commands.*;
 import org.usfirst.frc.team4607.robot.subsystems.Drivetrain;
-
+import org.usfirst.frc.team4607.robot.subsystems.ShooterArm;
 //import org.usfirst.frc.team4607.robot.commands.ExampleCommand;
 
 /**
@@ -48,8 +48,8 @@ public class OI {
     
     smooth.whenPressed(new ChangeAccelLim(.03));
     smooth.whenReleased(new ChangeAccelLim(.07));
-    turbo.whenPressed(new ChangeDriveMode(Drivetrain.mode.kComp));
-    turbo.whenReleased(new ChangeDriveMode(Drivetrain.mode.kDemo));
+    turbo.whileHeld(new ChangeDriveMode(Drivetrain.mode.kComp));
+    turbo.whenInactive(new ChangeDriveMode(Robot.drivetrain.getDrivingModeSelected()));
     	//Operator Controls
     Button in = new JoystickButton(shotgun, 1);
     Button out = new JoystickButton(shotgun, 2);
@@ -65,16 +65,16 @@ public class OI {
     
     in.whileHeld(new ExampleCommand());
     out.whileHeld(new ExampleCommand());
-    armUpQuick.whileHeld(new ExampleCommand());
-    armDownQuick.whileHeld(new ExampleCommand());
-    armUpSlow.whileHeld(new ExampleCommand());
-    armDownSlow.whileHeld(new ExampleCommand());
+    armUpQuick.whileHeld(new ShooterArmMoving(ShooterArm.UP));
+    armDownQuick.whileHeld(new ShooterArmMoving(ShooterArm.DOWN));
+    armUpSlow.whileHeld(new ShooterArmMoving(ShooterArm.UP_SLOW));
+    armDownSlow.whileHeld(new ShooterArmMoving(ShooterArm.DOWN_SLOW));
     winchUp.whileHeld(new ExampleCommand());
     winchDown.whileHeld(new ExampleCommand());
     eject.whileHeld(new ExampleCommand());
     
     //SmartDashboard
-    SmartDashboard.putNumber("Shooter Arm Angle", 0);
+    SmartDashboard.putNumber("Shooter Arm Angle", RobotMap.shooterArmAnalogGyro.getAngle());
     SmartDashboard.putNumber("Drive Angle", 0);
     SmartDashboard.putString("Notes", "Add drive smartdashboard stuff.");
     

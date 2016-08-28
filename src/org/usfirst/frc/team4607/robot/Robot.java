@@ -2,6 +2,7 @@
 package org.usfirst.frc.team4607.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.NamedSendable;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -18,12 +19,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+	
+	public static final RobotState robotState = new RobotState();
 	public static final Drivetrain drivetrain = new Drivetrain();
+	public static final ShooterArm shooterArm = new ShooterArm();
 	public static OI oi;
 
     Command autonomousCommand;
     SendableChooser chooser;
+    public static SendableChooser modeChooser;
+    
 
     /**
      * This function is run when the robot is first started up and should be
@@ -35,6 +40,14 @@ public class Robot extends IterativeRobot {
         chooser.addDefault("Default Auto", new Driving());
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
+        
+        modeChooser = new SendableChooser();
+        modeChooser.addDefault("Demo Mode", Drivetrain.mode.kDemo);
+        modeChooser.addObject("Competition Mode", Drivetrain.mode.kComp);
+        modeChooser.addObject("Stop Mode", Drivetrain.mode.kStop);
+        SmartDashboard.putData("Driving Mode", modeChooser);
+        SmartDashboard.putString("Note!:", "Driving Mode chooser is what it will default to but can be overridden.");
+        SmartDashboard.putString("Current Driving Mode:", drivetrain.getDrivingMode().toString());
     }
 	
 	/**
@@ -97,6 +110,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        
     }
     
     /**

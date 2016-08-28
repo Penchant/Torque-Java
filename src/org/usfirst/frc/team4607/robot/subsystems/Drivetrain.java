@@ -3,11 +3,15 @@ package org.usfirst.frc.team4607.robot.subsystems;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team4607.robot.RobotMap;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 //import java.lang.*; Remove if compiles without, was for Math.abs
 import org.usfirst.frc.team4607.robot.commands.Driving;
+import org.usfirst.frc.team4607.robot.commands.*;
+import org.usfirst.frc.team4607.robot.Robot;
 /**
  *
  */
@@ -54,8 +58,9 @@ public class Drivetrain extends Subsystem {
         setDefaultCommand(new Driving());
     }
    public void ArcadeDrive(Joystick joy){
-	   
-	   double moveValue = SmoothMotion(movePrior, joy.getY()*drivingMode.getMultiplier(), accelLim);
+	  double invert = -1; //Used to invert moveValue as the joystick is set up such that forward is negative on the Y-axis
+	  
+	   double moveValue = SmoothMotion(movePrior, joy.getY()*drivingMode.getMultiplier()*invert, accelLim);
 	   double rotateValue = SmoothMotion(rotatePrior, joy.getX()*drivingMode.getMultiplier(), accelLim);
 	   drive.arcadeDrive(moveValue, rotateValue);
 	   moveValue = movePrior;
@@ -92,7 +97,12 @@ public mode getDrivingMode() {
 }
 
 public void setDrivingMode(mode drivingMode) {
+	
+	
 	this.drivingMode = drivingMode;
+}
+public mode getDrivingModeSelected(){
+	return (mode) Robot.modeChooser.getSelected();
 }
 }
 

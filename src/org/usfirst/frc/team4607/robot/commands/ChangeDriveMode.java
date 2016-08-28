@@ -16,10 +16,12 @@ public class ChangeDriveMode extends Command {
     public ChangeDriveMode(Drivetrain.mode newDriveMode) {
         // Use requires() here to declare subsystem dependencies
     	this.newDriveMode= newDriveMode;
+    	requires(Robot.robotState);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+  
     }
 
     // Called repeatedly when this Command is scheduled to run
