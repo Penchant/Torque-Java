@@ -14,10 +14,10 @@ public class RobotMap {
     // following variables to use with your drivetrain subsystem.
     // public static int leftMotor = 1;
     // public static int rightMotor = 2;
-	public static CANTalon drivetrainFrontLeftMotor = new CANTalon(1);
-	public static CANTalon drivetrainRearLeftMotor = new CANTalon(2);
-	public static CANTalon drivetrainFrontRightMotor = new CANTalon(3);
-	public static CANTalon drivetrainRearRightMotor = new CANTalon(4);
+	public static CANTalon drivetrainFrontLeftMotor = new CANTalon(6);
+	public static CANTalon drivetrainRearLeftMotor = new CANTalon(7);
+	public static CANTalon drivetrainFrontRightMotor = new CANTalon(8);
+	public static CANTalon drivetrainRearRightMotor = new CANTalon(9);
 	
 	public static ADXRS450_Gyro drivetrainGyro = new ADXRS450_Gyro();
     
