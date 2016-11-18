@@ -23,6 +23,7 @@ public class Robot extends IterativeRobot {
 	public static final RobotState robotState = new RobotState();
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static final ShooterArm shooterArm = new ShooterArm();
+	public static final Shooter shooter = new Shooter();
 	public static OI oi;
 
     Command autonomousCommand;

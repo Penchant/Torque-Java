@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4607.robot.commands.*;
 import org.usfirst.frc.team4607.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team4607.robot.subsystems.Shooter;
 import org.usfirst.frc.team4607.robot.subsystems.ShooterArm;
 //import org.usfirst.frc.team4607.robot.commands.ExampleCommand;
 
@@ -63,15 +64,15 @@ public class OI {
     
     
     
-    in.whileHeld(new ExampleCommand());
-    out.whileHeld(new ExampleCommand());
+    in.whileHeld(new Shoot(Shooter.INTAKE));
+    out.whileHeld(new Shoot(Shooter.SHOOT));
     armUpQuick.whileHeld(new ShooterArmMoving(ShooterArm.UP));
     armDownQuick.whileHeld(new ShooterArmMoving(ShooterArm.DOWN));
     armUpSlow.whileHeld(new ShooterArmMoving(ShooterArm.UP_SLOW));
     armDownSlow.whileHeld(new ShooterArmMoving(ShooterArm.DOWN_SLOW));
-    winchUp.whileHeld(new ExampleCommand());
-    winchDown.whileHeld(new ExampleCommand());
-    eject.whileHeld(new ExampleCommand());
+    winchUp.whileHeld(new WinchControl(ShooterArm.UP));
+    winchDown.whileHeld(new WinchControl(ShooterArm.DOWN));
+    eject.whileHeld(new Punch());
     
     //SmartDashboard
     SmartDashboard.putNumber("Shooter Arm Angle", RobotMap.shooterArmAnalogGyro.getAngle());
